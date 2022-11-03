@@ -9,7 +9,6 @@ class lm_vnet(nn.Module):
     def __init__(self, config):
         super(lm_vnet, self).__init__()
         self.densenet = models.densenet121(pretrained=True)
-        self.densenet.features.conv0 = nn.Conv2d(6, 64, kernel_size=(7, 7), stride=(2, 2), padding=(3, 3), bias=False)
 
         self.pool = nn.AdaptiveAvgPool2d(output_size=1)
         self.densenet.classifier = nn.Linear(1024*2, 2)
