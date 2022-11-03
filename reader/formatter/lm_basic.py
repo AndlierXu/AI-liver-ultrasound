@@ -38,12 +38,12 @@ class lm_basic:
         self.data_transforms["test"].append(transforms.ToTensor())
 
         if self.normalize == True:
-            self.data_transforms["train"].append(transforms.Normalize(mean=[0.485, 0.456, 0.406, 0.485, 0.456, 0.406], 
-                        std=[0.229, 0.224, 0.225, 0.229, 0.224, 0.225]))     
-            self.data_transforms["valid"].append(transforms.Normalize(mean=[0.485, 0.456, 0.406, 0.485, 0.456, 0.406],
-                        std=[0.229 , 0.224, 0.225, 0.229 , 0.224, 0.225]))
-            self.data_transforms["test"].append(transforms.Normalize(mean=[0.485, 0.456, 0.406, 0.485, 0.456, 0.406],
-                        std=[0.229 , 0.224, 0.225, 0.229 , 0.224, 0.225]))
+            self.data_transforms["train"].append(transforms.Normalize(mean=[0.485, 0.456, 0.406], 
+                        std=[0.229, 0.224, 0.225]))     
+            self.data_transforms["valid"].append(transforms.Normalize(mean=[0.485, 0.456, 0.406],
+                        std=[0.229 , 0.224, 0.225]))
+            self.data_transforms["test"].append(transforms.Normalize(mean=[0.485, 0.456, 0.406],
+                        std=[0.229 , 0.224, 0.225]))
         self.data_transforms["train"] = transforms.Compose(self.data_transforms["train"])
         self.data_transforms["valid"] = transforms.Compose(self.data_transforms["valid"])
         self.data_transforms["test"] = transforms.Compose(self.data_transforms["test"])
@@ -79,9 +79,9 @@ class lm_basic:
             liver_img = Image.fromarray(liver_img)
             lesion_img = Image.fromarray(lesion_img)
 
-            img = np.zeros((self.image_size, self.image_size,6),dtype=np.float32)
-            img[:,:, 0:3] = liver_img[:,:,:]
-            img[:,:, 3:6] = lesion_img[:,:,:]
+            img = np.zeros((self.image_size, self.image_size,3),dtype=np.float32)
+            img[:,:, 0:2] = liver_img[:,:,0:2]
+            img[:,:, 2:] = lesion_img[:,:,1]
             img = self.data_transforms[mode](img)
 
             imgs.append(img)
