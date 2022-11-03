@@ -91,13 +91,18 @@ class seg_basic:
 
             img = np.array(img)
 
-            up = np.nonzero(img[:,:,0])[0].min()
-            down = np.nonzero(img[:,:,0])[0].max()
-            left = np.nonzero(img[:,:,0])[1].min()
-            right = np.nonzero(img[:,:,0])[1].max()
+            img_up = np.nonzero(img[:,:,0])[0].min()
+            img_down = np.nonzero(img[:,:,0])[0].max()
+            img_left = np.nonzero(img[:,:,0])[1].min()
+            img_right = np.nonzero(img[:,:,0])[1].max()
 
-            img = img[up:down,left:right]
-            label = label[up:down,left:right]
+            label_up = np.nonzero(label[:,:,0])[0].min()
+            label_down = np.nonzero(label[:,:,0])[0].max()
+            label_left = np.nonzero(label[:,:,0])[1].min()
+            label_right = np.nonzero(label[:,:,0])[1].max()
+
+            img = img[min(img_up,label_up):max(img_down,label_down),min(img_left,label_left):max(img_down,label_down)]
+            label = label[min(img_up,label_up):max(img_down,label_down),min(img_left,label_left):max(img_down,label_down)]
 
             label = cv2.resize(label,(self.image_size,self.image_size))
             img = cv2.resize(img,(self.image_size,self.image_size))
