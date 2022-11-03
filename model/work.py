@@ -71,9 +71,12 @@ def seg_net(net, valid_dataset, use_gpu, config, epoch, writer=None, test_name='
                     data[key] = Variable(data[key])
 
         logits = net(data["image"])
+        pred = torch.sigmoid(logits)
+        
         label = data["label"]
 
         loss = criterion(logits, label) 
+        accu = dice_coeff(pred, label)
 
         #auc
         accu = accu/len(data["image_num"])
