@@ -8,7 +8,6 @@ class lmc_net(nn.Module):
         super(lmc_net, self).__init__()
 
         self.densenet = models.densenet121(pretrained=True)
-        self.densenet.features.conv0 = nn.Conv2d(6, 64, kernel_size=(7, 7), stride=(2, 2), padding=(3, 3), bias=False)
         self.densenet.classifier = nn.Linear(1024, 128)
 
         self.relu = nn.ReLU()
