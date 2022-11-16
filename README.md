@@ -9,7 +9,7 @@ python train.py -c config/run.config -g 0,1
 
 #### Evaluate the model:
 ```bash
-python eval.py -c config/run.config -g 0
+python eval.py -c config/run.config -m model.pkl -g 0
 ```
 
 #### Notes
